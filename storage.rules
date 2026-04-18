@@ -1,0 +1,13 @@
+rules_version = '2';
+service firebase.storage {
+  match /b/{bucket}/o {
+    match /trees/{treeId}/photos/{photo} {
+      // Anyone can read photos (for public tree view)
+      allow read: if true;
+      // Only logged-in users can upload
+      allow write: if request.auth != null
+        && request.resource.size < 5 * 1024 * 1024
+        && request.resource.contentType.matches('image/.*');
+    }
+  }
+}

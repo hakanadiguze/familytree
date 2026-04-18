@@ -1,0 +1,27 @@
+rules_version = '2';
+service cloud.firestore {
+  match /databases/{database}/documents {
+    match /trees/{treeId} {
+      // Anyone can read (public share links)
+      allow read: if true;
+
+      // Any logged-in user can create a tree
+      allow create: if request.auth != null;
+
+      // Owner can do anything
+      // Co-admins can update (not delete) — we check email in app layer
+      allow update: if request.auth != null;
+      allow delete: if request.auth != null && request.auth.uid == resource.data.ownerId;
+
+      match /people/{personId} {
+        allow read: if true;
+        allow write: if request.auth != null;
+      }
+
+      match /relations/{relationId} {
+        allow read: if true;
+        allow write: if request.auth != null;
+      }
+    }
+  }
+}
