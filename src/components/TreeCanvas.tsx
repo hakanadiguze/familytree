@@ -89,12 +89,13 @@ interface Props {
   onMoveMulti?: (moves: { id: string; x: number; y: number }[]) => void
   onConnectRequest?: (fromId: string, toId: string) => void
   onDoubleClickCanvas?: (x: number, y: number) => void
+  onEdit?: (id: string) => void
   showType?: boolean
 }
 
 export default function TreeCanvas({
   people, relations, selectedId, isAdmin,
-  onSelect, onMove, onMoveMulti, onConnectRequest, onDoubleClickCanvas, showType = true
+  onSelect, onMove, onMoveMulti, onConnectRequest, onDoubleClickCanvas, onEdit, showType = true
 }: Props) {
   const wrapRef = useRef<HTMLDivElement>(null)
   const [tx, setTx] = useState(40)
@@ -609,9 +610,16 @@ export default function TreeCanvas({
               >
                 {/* Avatar wrapper — buttons positioned relative to this */}
                 <div className={styles.avatarWrap}>
-                  {/* Move handle */}
-                  {isAdmin && mode === 'pan' && !connectDraft && (isHovered || isMobile) && (
+
+                  {/* Desktop only: drag handle (left) — hover */}
+                  {isAdmin && !isMobile && mode === 'pan' && !connectDraft && isHovered && (
                     <div className={styles.moveHandle} title="Drag to move">✥</div>
+                  )}
+
+                  {/* Desktop only: edit button (top) — hover */}
+                  {isAdmin && !isMobile && isHovered && (
+                    <div className={styles.editHandle} title="Edit person"
+                      onMouseDown={e => { e.stopPropagation(); onEdit ? onEdit(person.id) : onSelect(person.id) }}>✏️</div>
                   )}
 
                   <div className={styles.avatar} style={{ borderColor: color+'50', background: color+'12' }}>
@@ -620,11 +628,24 @@ export default function TreeCanvas({
                       : <span style={{ color }}>{getInitials(person.name)}</span>}
                   </div>
 
-                  {/* Connect (+) button */}
-                  {isAdmin && mode === 'pan' && (isHovered || isMobile) && (
+                  {/* Desktop: connect (+) button (right) — hover */}
+                  {isAdmin && !isMobile && mode === 'pan' && isHovered && (
                     <div data-connect="true" className={styles.connectBtn}
                       title="Drag to connect"
                       onMouseDown={e => startConnect(e, person)}>+</div>
+                  )}
+
+                  {/* Mobile: edit button (left) — always visible, offset away */}
+                  {isAdmin && isMobile && (
+                    <div className={styles.mobileEditBtn} title="Edit"
+                      onPointerDown={e => { e.stopPropagation(); e.preventDefault(); onEdit ? onEdit(person.id) : onSelect(person.id) }}>✏️</div>
+                  )}
+
+                  {/* Mobile: connect (+) button (right) — always visible, offset away */}
+                  {isAdmin && isMobile && mode === 'pan' && (
+                    <div data-connect="true" className={styles.mobileConnectBtn}
+                      title="Add connection"
+                      onPointerDown={e => startConnect(e, person)}>+</div>
                   )}
                 </div>
 

@@ -101,10 +101,12 @@
   flex-shrink: 0;
 }
 
+/* ── Desktop node action buttons (hover only) ── */
 .moveHandle {
   position: absolute;
-  top: -4px; left: -4px;
-  width: 24px; height: 24px;
+  top: 50%; transform: translateY(-50%);
+  left: -30px;
+  width: 26px; height: 26px;
   background: var(--c-bg);
   border: 1px solid var(--c-border-2);
   border-radius: 50%;
@@ -114,41 +116,76 @@
   box-shadow: 0 1px 6px rgba(0,0,0,0.15);
   z-index: 5;
   color: var(--c-text-2);
-  pointer-events: none;
+  pointer-events: all;
 }
+.moveHandle:active { cursor: grabbing; }
 
-/* Connect (+) button */
+.editHandle {
+  position: absolute;
+  top: -30px; left: 50%; transform: translateX(-50%);
+  width: 26px; height: 26px;
+  background: var(--c-bg);
+  border: 1px solid var(--c-border-2);
+  border-radius: 50%;
+  font-size: 13px;
+  display: flex; align-items: center; justify-content: center;
+  cursor: pointer;
+  box-shadow: 0 1px 6px rgba(0,0,0,0.15);
+  z-index: 5;
+}
+.editHandle:hover { background: #EEEDFE; border-color: #534AB7; }
+.editHandle:active { transform: translateX(-50%) scale(0.93); }
+
 .connectBtn {
   position: absolute;
-  top: -4px; right: -4px;
-  width: 28px; height: 28px;
+  top: 50%; transform: translateY(-50%);
+  right: -30px;
+  width: 26px; height: 26px;
   background: #534AB7; color: #fff;
   border-radius: 50%;
   font-size: 18px; font-weight: 300;
   display: flex; align-items: center; justify-content: center;
   cursor: crosshair;
-  box-shadow: 0 1px 8px rgba(83,74,183,0.45);
+  box-shadow: 0 1px 8px rgba(83,74,183,0.4);
   z-index: 6; line-height: 1; user-select: none;
   -webkit-tap-highlight-color: transparent;
 }
-.connectBtn:hover { background: #3C3489; transform: scale(1.1); }
-.connectBtn:active { transform: scale(0.93); }
+.connectBtn:hover { background: #3C3489; transform: translateY(-50%) scale(1.1); }
+.connectBtn:active { transform: translateY(-50%) scale(0.93); }
 
-/* Mobile: bigger tap targets */
-@media (pointer: coarse) {
-  .moveHandle {
-    width: 32px; height: 32px;
-    font-size: 16px;
-    top: -6px; left: -6px;
-    border-width: 1.5px;
-    pointer-events: all;
-  }
-  .connectBtn {
-    width: 36px; height: 36px;
-    font-size: 22px;
-    top: -6px; right: -6px;
-  }
+/* ── Mobile node action buttons (always visible, offset away) ── */
+.mobileEditBtn {
+  position: absolute;
+  top: 50%; transform: translateY(-50%);
+  left: -44px;
+  width: 36px; height: 36px;
+  background: var(--c-bg);
+  border: 1.5px solid var(--c-border-2);
+  border-radius: 50%;
+  font-size: 16px;
+  display: flex; align-items: center; justify-content: center;
+  cursor: pointer;
+  box-shadow: 0 2px 8px rgba(0,0,0,0.15);
+  z-index: 6;
+  -webkit-tap-highlight-color: transparent;
 }
+.mobileEditBtn:active { background: #EEEDFE; transform: translateY(-50%) scale(0.93); }
+
+.mobileConnectBtn {
+  position: absolute;
+  top: 50%; transform: translateY(-50%);
+  right: -44px;
+  width: 36px; height: 36px;
+  background: #534AB7; color: #fff;
+  border-radius: 50%;
+  font-size: 22px; font-weight: 300;
+  display: flex; align-items: center; justify-content: center;
+  cursor: pointer;
+  box-shadow: 0 2px 10px rgba(83,74,183,0.4);
+  z-index: 6; line-height: 1; user-select: none;
+  -webkit-tap-highlight-color: transparent;
+}
+.mobileConnectBtn:active { transform: translateY(-50%) scale(0.93); }
 
 .name {
   font-size: 12px; font-weight: 500;
