@@ -616,11 +616,7 @@ export default function TreeCanvas({
                     <div className={styles.moveHandle} title="Drag to move">✥</div>
                   )}
 
-                  {/* Desktop only: edit button (top) — shown via CSS :hover on .node */}
-                  {isAdmin && !isMobile && (
-                    <div className={styles.editHandle} title="Edit person"
-                      onMouseDown={e => { e.stopPropagation(); onEdit ? onEdit(person.id) : onSelect(person.id) }}>✏️</div>
-                  )}
+
 
                   <div className={styles.avatar} style={{ borderColor: color+'50', background: color+'12' }}>
                     {person.photo

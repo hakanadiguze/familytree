@@ -135,25 +135,6 @@
 }
 .moveHandle:active { cursor: grabbing; }
 
-.editHandle {
-  position: absolute;
-  top: -34px; left: 50%; transform: translateX(-50%);
-  width: 26px; height: 26px;
-  background: var(--c-bg);
-  border: 1px solid var(--c-border-2);
-  border-radius: 50%;
-  font-size: 13px;
-  display: flex; align-items: center; justify-content: center;
-  cursor: pointer;
-  box-shadow: 0 1px 6px rgba(0,0,0,0.15);
-  z-index: 5;
-  /* Hidden by default */
-  opacity: 0;
-  pointer-events: none;
-  transition: opacity 0.12s;
-}
-.editHandle:hover { background: #EEEDFE; border-color: #534AB7; }
-.editHandle:active { transform: translateX(-50%) scale(0.93); }
 
 .connectBtn {
   position: absolute;
@@ -178,7 +159,6 @@
 
 /* Show all 3 buttons when hovering anywhere over the node */
 .node:hover .moveHandle,
-.node:hover .editHandle,
 .node:hover .connectBtn {
   opacity: 1;
   pointer-events: all;
