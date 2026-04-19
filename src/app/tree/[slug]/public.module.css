@@ -1,0 +1,32 @@
+.center { display:flex;align-items:center;justify-content:center;height:100vh; }
+.spinner { width:28px;height:28px;border:2px solid var(--c-border);border-top-color:var(--c-purple);border-radius:50%;animation:spin 0.7s linear infinite; }
+@keyframes spin{to{transform:rotate(360deg)}}
+.notFound { text-align:center;color:var(--c-text-2); }
+.notFound h1 { font-size:20px;font-weight:500;margin-bottom:8px; }
+.notFound p { font-size:14px; }
+
+.page { display:flex;flex-direction:column;height:100vh;overflow:hidden; }
+
+.header { background:var(--c-bg);border-bottom:0.5px solid var(--c-border);padding:10px 16px;display:flex;align-items:center;justify-content:space-between;flex-shrink:0; }
+.headerTitle { font-size:16px;font-weight:500; }
+.headerMeta { font-size:11px;color:var(--c-text-3);margin-top:2px; }
+.badge { background:var(--c-bg-2);border:0.5px solid var(--c-border);border-radius:20px;padding:4px 10px;font-size:11px;color:var(--c-text-2); }
+
+.content { flex:1;overflow:hidden;display:flex;flex-direction:column; }
+
+.listWrap { flex:1;overflow-y:auto; }
+.listSearch { padding:10px 14px;background:var(--c-bg);border-bottom:0.5px solid var(--c-border); }
+.searchInput { width:100%;border:0.5px solid var(--c-border-2);border-radius:8px;padding:9px 14px;font-size:15px;background:var(--c-bg-2);color:var(--c-text);outline:none; }
+.listItem { display:flex;align-items:center;gap:12px;padding:12px 16px;cursor:pointer;border-bottom:0.5px solid var(--c-border);transition:background 0.1s; }
+.listItem:active { background:var(--c-bg-2); }
+.listAvatar { width:40px;height:40px;border-radius:50%;display:flex;align-items:center;justify-content:center;font-size:14px;font-weight:500;flex-shrink:0;overflow:hidden; }
+.listName { font-size:15px;font-weight:500; }
+.listSub { font-size:12px;color:var(--c-text-2); }
+.empty { padding:40px;text-align:center;color:var(--c-text-2);font-size:15px; }
+
+.bottomBar { background:var(--c-bg);border-top:0.5px solid var(--c-border);display:flex;flex-shrink:0;padding-bottom:env(safe-area-inset-bottom,0); }
+.tab { flex:1;display:flex;flex-direction:column;align-items:center;gap:2px;padding:8px 6px;border:none;background:none;font-size:11px;color:var(--c-text-2);font-family:inherit;cursor:pointer; }
+.tab span { font-size:20px; }
+.tabActive { color:var(--c-purple); }
+
+.footer { display:flex;justify-content:space-between;padding:8px 16px;font-size:11px;color:var(--c-text-3);background:var(--c-bg);border-top:0.5px solid var(--c-border);flex-shrink:0; }

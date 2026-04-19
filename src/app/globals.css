@@ -1,0 +1,52 @@
+*, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+
+:root {
+  --c-purple: #534AB7;
+  --c-purple-light: #EEEDFE;
+  --c-purple-dark: #3C3489;
+  --c-text: #1a1a1a;
+  --c-text-2: #666;
+  --c-text-3: #999;
+  --c-bg: #fff;
+  --c-bg-2: #f7f7f5;
+  --c-bg-3: #f0f0ec;
+  --c-border: rgba(0,0,0,0.1);
+  --c-border-2: rgba(0,0,0,0.2);
+  --c-danger: #A32D2D;
+  --c-danger-bg: #FCEBEB;
+  --radius: 10px;
+  --radius-lg: 14px;
+}
+
+@media (prefers-color-scheme: dark) {
+  :root {
+    --c-text: #f0f0ee;
+    --c-text-2: #aaa;
+    --c-text-3: #666;
+    --c-bg: #1a1a1a;
+    --c-bg-2: #242424;
+    --c-bg-3: #2e2e2e;
+    --c-border: rgba(255,255,255,0.1);
+    --c-border-2: rgba(255,255,255,0.2);
+  }
+}
+
+html, body {
+  height: 100%;
+  font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', sans-serif;
+  background: var(--c-bg-2);
+  color: var(--c-text);
+  -webkit-font-smoothing: antialiased;
+  /* Prevent bounce scroll on iOS */
+  overscroll-behavior: none;
+}
+
+/* Prevent text size adjustment on iOS rotation */
+html { -webkit-text-size-adjust: 100%; }
+
+button { font-family: inherit; cursor: pointer; }
+input, select, textarea { font-family: inherit; }
+a { color: inherit; text-decoration: none; }
+
+/* ─── Utilities ─── */
+.sr-only { position: absolute; width: 1px; height: 1px; overflow: hidden; clip: rect(0,0,0,0); white-space: nowrap; }
