@@ -45,10 +45,11 @@ interface Props {
   onEdit?: () => void
   onNavigate: (id: string) => void
   onDeleteRelation?: (relationId: string) => void
+  onAddConnection?: () => void
 }
 
 export default function PersonPanel({
-  person, tree, people, relations, isAdmin, onClose, onEdit, onNavigate, onDeleteRelation
+  person, tree, people, relations, isAdmin, onClose, onEdit, onNavigate, onDeleteRelation, onAddConnection
 }: Props) {
   const colorMap = buildFamilyColors(people, relations)
   const color = getColor(person.id, colorMap)
@@ -174,6 +175,12 @@ export default function PersonPanel({
                 ))}
               </div>
             </div>
+          )}
+
+          {isAdmin && onAddConnection && (
+            <button className={styles.addConnBtn} onClick={onAddConnection}>
+              + Add connection
+            </button>
           )}
 
           {isAdmin && (

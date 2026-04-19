@@ -611,13 +611,13 @@ export default function TreeCanvas({
                 {/* Avatar wrapper — buttons positioned relative to this */}
                 <div className={styles.avatarWrap}>
 
-                  {/* Desktop only: drag handle (left) — hover */}
-                  {isAdmin && !isMobile && mode === 'pan' && !connectDraft && isHovered && (
+                  {/* Desktop only: drag handle (left) — shown via CSS :hover on .node */}
+                  {isAdmin && !isMobile && mode === 'pan' && !connectDraft && (
                     <div className={styles.moveHandle} title="Drag to move">✥</div>
                   )}
 
-                  {/* Desktop only: edit button (top) — hover */}
-                  {isAdmin && !isMobile && isHovered && (
+                  {/* Desktop only: edit button (top) — shown via CSS :hover on .node */}
+                  {isAdmin && !isMobile && (
                     <div className={styles.editHandle} title="Edit person"
                       onMouseDown={e => { e.stopPropagation(); onEdit ? onEdit(person.id) : onSelect(person.id) }}>✏️</div>
                   )}
@@ -628,25 +628,14 @@ export default function TreeCanvas({
                       : <span style={{ color }}>{getInitials(person.name)}</span>}
                   </div>
 
-                  {/* Desktop: connect (+) button (right) — hover */}
-                  {isAdmin && !isMobile && mode === 'pan' && isHovered && (
+                  {/* Desktop: connect (+) button (right) — shown via CSS :hover on .node */}
+                  {isAdmin && !isMobile && mode === 'pan' && (
                     <div data-connect="true" className={styles.connectBtn}
                       title="Drag to connect"
                       onMouseDown={e => startConnect(e, person)}>+</div>
                   )}
 
-                  {/* Mobile: edit button (left) — always visible, offset away */}
-                  {isAdmin && isMobile && (
-                    <div className={styles.mobileEditBtn} title="Edit"
-                      onPointerDown={e => { e.stopPropagation(); e.preventDefault(); onEdit ? onEdit(person.id) : onSelect(person.id) }}>✏️</div>
-                  )}
 
-                  {/* Mobile: connect (+) button (right) — always visible, offset away */}
-                  {isAdmin && isMobile && mode === 'pan' && (
-                    <div data-connect="true" className={styles.mobileConnectBtn}
-                      title="Add connection"
-                      onPointerDown={e => startConnect(e, person)}>+</div>
-                  )}
                 </div>
 
                 <div className={styles.name}>{person.name}</div>
