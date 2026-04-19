@@ -340,6 +340,7 @@ export default function TreeEditor() {
           onEdit={() => setModal({ type: 'editPerson', person: selectedPerson })}
           onNavigate={pid => setSelectedId(pid)}
           onDeleteRelation={async (rid) => { await handleDeleteRelation(rid); await reload() }}
+          onAddConnection={() => { setPanelOpen(false); setModal({ type: 'addRelation', fromId: selectedPerson.id }) }}
         />
       )}
 

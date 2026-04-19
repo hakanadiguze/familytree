@@ -47,6 +47,9 @@
 /* FAB */
 .fabOverlay { position:absolute;inset:0;z-index:8; }
 .fabWrap { position:absolute;bottom:20px;right:16px;display:flex;flex-direction:column;align-items:flex-end;gap:10px;z-index:9; }
+@media (pointer: coarse) {
+  .fabWrap { bottom: 90px; }
+}
 .fab { width:56px;height:56px;border-radius:50%;background:#534AB7;color:#fff;border:none;display:flex;align-items:center;justify-content:center;cursor:pointer;box-shadow:0 4px 16px rgba(83,74,183,0.4);transition:transform 0.2s,background 0.2s;-webkit-tap-highlight-color:transparent;flex-shrink:0; }
 .fab:active { transform:scale(0.93); }
 .fabOpen { background:#3C3489;transform:rotate(45deg); }
