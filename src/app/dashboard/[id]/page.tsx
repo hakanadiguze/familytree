@@ -18,6 +18,7 @@ import PersonModal from '@/components/PersonModal'
 import RelationModal from '@/components/RelationModal'
 import CustomFieldsModal from '@/components/CustomFieldsModal'
 import CoAdminModal from '@/components/CoAdminModal'
+import HelpPanel from '@/components/HelpPanel'
 import TreeSettingsModal from '@/components/TreeSettingsModal'
 
 import styles from './editor.module.css'
