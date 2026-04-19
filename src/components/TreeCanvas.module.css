@@ -92,17 +92,26 @@
 }
 
 /* Move handle */
+/* Avatar wrapper — buttons positioned relative to avatar, not the whole node */
+.avatarWrap {
+  position: relative;
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  flex-shrink: 0;
+}
+
 .moveHandle {
   position: absolute;
-  top: -10px; left: -10px;
-  width: 22px; height: 22px;
+  top: -4px; left: -4px;
+  width: 24px; height: 24px;
   background: var(--c-bg);
-  border: 0.5px solid var(--c-border-2);
+  border: 1px solid var(--c-border-2);
   border-radius: 50%;
-  font-size: 12px;
+  font-size: 13px;
   display: flex; align-items: center; justify-content: center;
   cursor: grab;
-  box-shadow: 0 1px 4px rgba(0,0,0,0.12);
+  box-shadow: 0 1px 6px rgba(0,0,0,0.15);
   z-index: 5;
   color: var(--c-text-2);
   pointer-events: none;
@@ -111,17 +120,35 @@
 /* Connect (+) button */
 .connectBtn {
   position: absolute;
-  top: -10px; right: -10px;
-  width: 24px; height: 24px;
+  top: -4px; right: -4px;
+  width: 28px; height: 28px;
   background: #534AB7; color: #fff;
   border-radius: 50%;
-  font-size: 16px; font-weight: 300;
+  font-size: 18px; font-weight: 300;
   display: flex; align-items: center; justify-content: center;
   cursor: crosshair;
-  box-shadow: 0 1px 6px rgba(83,74,183,0.4);
+  box-shadow: 0 1px 8px rgba(83,74,183,0.45);
   z-index: 6; line-height: 1; user-select: none;
+  -webkit-tap-highlight-color: transparent;
 }
 .connectBtn:hover { background: #3C3489; transform: scale(1.1); }
+.connectBtn:active { transform: scale(0.93); }
+
+/* Mobile: bigger tap targets */
+@media (pointer: coarse) {
+  .moveHandle {
+    width: 32px; height: 32px;
+    font-size: 16px;
+    top: -6px; left: -6px;
+    border-width: 1.5px;
+    pointer-events: all;
+  }
+  .connectBtn {
+    width: 36px; height: 36px;
+    font-size: 22px;
+    top: -6px; right: -6px;
+  }
+}
 
 .name {
   font-size: 12px; font-weight: 500;

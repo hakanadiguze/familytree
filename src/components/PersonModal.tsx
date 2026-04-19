@@ -36,7 +36,6 @@ export default function PersonModal({ tree, person, onSave, onDelete, onClose, i
   const [birthPlace, setBirthPlace] = useState(person?.birthPlace || '')
   const [isDeceased, setIsDeceased] = useState(person?.isDeceased || false)
   const [deathDate, setDeathDate]   = useState(parseToInputDate(person?.deathDate || ''))
-  const [manualGen, setManualGen]   = useState<string>(person?.manualGen !== undefined ? String(person.manualGen) : '')
   const [customFields, setCustomFields] = useState<Record<string,string>>(person?.customFields || {})
 
   const cloudinaryReady = !!(CLOUD_NAME && UPLOAD_PRESET)
@@ -71,7 +70,6 @@ export default function PersonModal({ tree, person, onSave, onDelete, onClose, i
       if (birthPlace)     p.birthPlace = birthPlace.trim()
       if (isDeceased)     { p.isDeceased = true; if (deathDate) p.deathDate = deathDate }
       else                 { p.isDeceased = false; p.deathDate = '' }
-      if (manualGen !== '') p.manualGen = parseInt(manualGen)
       const cf: Record<string,string> = {}
       ;(tree.customFieldDefs || []).forEach(f => { if (customFields[f]) cf[f] = customFields[f] })
       if (Object.keys(cf).length > 0) p.customFields = cf
@@ -177,14 +175,6 @@ export default function PersonModal({ tree, person, onSave, onDelete, onClose, i
                 onChange={e => setDeathDate(e.target.value)} />
             </div>
           )}
-
-          {/* Generation override */}
-          <div className={styles.group}>
-            <label className={styles.label}>Generation level <span style={{ color:'var(--c-text-3)',fontWeight:400,fontSize:11 }}>(optional)</span></label>
-            <input className={styles.input} type="number" value={manualGen}
-              onChange={e => setManualGen(e.target.value)}
-              placeholder="e.g. 0 = oldest, 1 = next..." />
-          </div>
 
           {/* Custom fields */}
           {(tree.customFieldDefs || []).map(f => (

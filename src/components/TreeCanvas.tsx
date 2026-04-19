@@ -105,6 +105,9 @@ export default function TreeCanvas({
 
   const [mode, setMode] = useState<ToolMode>('pan')
   const [hoverId, setHoverId] = useState<string | null>(null)
+  // Detect touch/mobile device
+  // Detect touch device via CSS media query for consistency with CSS-based approach
+  const isMobile = typeof window !== 'undefined' && window.matchMedia('(pointer: coarse)').matches
   const [multiSelected, setMultiSelected] = useState<Set<string>>(new Set())
   // Build family color map once per render
   const colorMap = buildFamilyColors(people, relations)
@@ -604,23 +607,26 @@ export default function TreeCanvas({
                   onSelect(person.id)
                 }}
               >
-                {/* Move handle — pan mode hover */}
-                {isAdmin && isHovered && mode === 'pan' && !connectDraft && (
-                  <div className={styles.moveHandle} title="Drag to move">✥</div>
-                )}
+                {/* Avatar wrapper — buttons positioned relative to this */}
+                <div className={styles.avatarWrap}>
+                  {/* Move handle */}
+                  {isAdmin && mode === 'pan' && !connectDraft && (isHovered || isMobile) && (
+                    <div className={styles.moveHandle} title="Drag to move">✥</div>
+                  )}
 
-                <div className={styles.avatar} style={{ borderColor: color+'50', background: color+'12' }}>
-                  {person.photo
-                    ? <img src={person.photo} alt="" style={{ width:'100%', height:'100%', objectFit:'cover', borderRadius:'50%' }} />
-                    : <span style={{ color }}>{getInitials(person.name)}</span>}
+                  <div className={styles.avatar} style={{ borderColor: color+'50', background: color+'12' }}>
+                    {person.photo
+                      ? <img src={person.photo} alt="" style={{ width:'100%', height:'100%', objectFit:'cover', borderRadius:'50%' }} />
+                      : <span style={{ color }}>{getInitials(person.name)}</span>}
+                  </div>
+
+                  {/* Connect (+) button */}
+                  {isAdmin && mode === 'pan' && (isHovered || isMobile) && (
+                    <div data-connect="true" className={styles.connectBtn}
+                      title="Drag to connect"
+                      onMouseDown={e => startConnect(e, person)}>+</div>
+                  )}
                 </div>
-
-                {/* Connect (+) button — pan mode hover */}
-                {isAdmin && isHovered && mode === 'pan' && (
-                  <div data-connect="true" className={styles.connectBtn}
-                    title="Drag to connect"
-                    onMouseDown={e => startConnect(e, person)}>+</div>
-                )}
 
                 <div className={styles.name}>{person.name}</div>
                 {showType && person.type && <div className={styles.type}>{person.type}</div>}
