@@ -475,8 +475,11 @@ export default function TreeCanvas({
                 const children = childIds.map(id => people.find(p => p.id === id)).filter(Boolean) as typeof people
                 if (!parents.length || !children.length) return
 
-                // Junction X = midpoint of CHILDREN (line drops straight down to them)
-                // Junction Y = between parents row and children row
+                // Family line color = same as children's node color
+                const rawColor = colorMap.get(children[0].id) || '#888888'
+                const lineColor = rawColor === '#888888' ? '#B0ADA8' : rawColor
+
+                // Junction X = midpoint of CHILDREN
                 const pMidY = parents.reduce((s, p) => s + p.y, 0) / parents.length
                 const cMidX = children.reduce((s, c) => s + c.x, 0) / children.length
                 const cMidY = children.reduce((s, c) => s + c.y, 0) / children.length
@@ -488,7 +491,7 @@ export default function TreeCanvas({
                   elements.push(
                     <line key={`pj-${key}-${i}`}
                       x1={par.x} y1={par.y} x2={juncX} y2={juncY}
-                      stroke="#B0ADA8" strokeWidth={1.5} opacity={0.8} />
+                      stroke={lineColor} strokeWidth={1.5} opacity={0.6} />
                   )
                 })
 
@@ -498,7 +501,7 @@ export default function TreeCanvas({
                   elements.push(
                     <line key={`trunk-${key}`}
                       x1={juncX} y1={juncY} x2={juncX} y2={trunkY}
-                      stroke="#B0ADA8" strokeWidth={1.5} opacity={0.8} />
+                      stroke={lineColor} strokeWidth={1.5} opacity={0.6} />
                   )
                 }
 
@@ -509,7 +512,7 @@ export default function TreeCanvas({
                   elements.push(
                     <line key={`hbar-${key}`}
                       x1={minCX} y1={trunkY} x2={maxCX} y2={trunkY}
-                      stroke="#B0ADA8" strokeWidth={1.5} opacity={0.8} />
+                      stroke={lineColor} strokeWidth={1.5} opacity={0.6} />
                   )
                 }
 
@@ -520,19 +523,18 @@ export default function TreeCanvas({
                   elements.push(
                     <line key={`cj-${key}-${i}`}
                       x1={fromX} y1={fromY} x2={child.x} y2={child.y}
-                      stroke="#B0ADA8" strokeWidth={1.5} opacity={0.8} />
+                      stroke={lineColor} strokeWidth={1.5} opacity={0.6} />
                   )
                 })
 
-                // "Parent" label on the trunk (or midpoint if single child)
+                // Label
                 const labelY = children.length > 1 ? trunkY : (juncY + children[0].y) / 2
-                const labelX = juncX
                 const lw = 52
                 elements.push(
                   <g key={`plabel-${key}`}>
-                    <rect x={labelX-lw/2} y={labelY-9} width={lw} height={18} rx={9}
-                      fill="white" fillOpacity={0.88} stroke="#B0ADA830" strokeWidth={0.5} />
-                    <text x={labelX} y={labelY} className={styles.relLabel} fill="#888">Parent</text>
+                    <rect x={juncX-lw/2} y={labelY-9} width={lw} height={18} rx={9}
+                      fill="white" fillOpacity={0.9} stroke={lineColor + '50'} strokeWidth={0.5} />
+                    <text x={juncX} y={labelY} className={styles.relLabel} fill={lineColor}>Parent</text>
                   </g>
                 )
               })
